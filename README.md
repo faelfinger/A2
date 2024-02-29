@@ -1,8 +1,5 @@
 # A2
 
-
-# A1
-
    <!--título-->
 <div id="user-content-toc">
   <ul align="center">
