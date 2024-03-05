@@ -5,7 +5,9 @@
 </div>
      
 * Jogos / Mods / Script / Bots
-* Tibia(OTS) ⚠️Em testes⚠️
+> [!WARNING]
+> * Tibia(OTS) ⚠️Em testes⚠️
+
 
 
 <!-- Presentation -->
@@ -26,4 +28,12 @@
 
 <!-- GithubStats 
 ![VariableBee GitHub stats](https://github-readme-stats.vercel.app/api?username=faelfinger&show_icons=true&theme=gotham) -->
+<!--
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+-->
+
 
