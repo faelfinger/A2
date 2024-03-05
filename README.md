@@ -4,6 +4,9 @@
     <summary><h1 style="display: inline-block">🎮🕹️</h1></summary>
 </div>
 
+* Jogos / Mods / Script / Bots
+
+
 <!-- Presentation -->
 <p>
 
