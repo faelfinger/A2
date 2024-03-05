@@ -1,0 +1,29 @@
+{
+  "looting": {
+    "items": [
+
+    ],
+    "maxDanger": 10,
+    "minCapacity": 100,
+    "containers": [
+
+    ],
+    "everyItem": false
+  },
+  "targeting": [
+    {
+      "danger": 10,
+      "keepDistance": false,
+      "lureCount": 1,
+      "lureCavebot": false,
+      "avoidAttacks": false,
+      "keepDistanceRange": 1,
+      "lure": false,
+      "name": "Fode Quest",
+      "maxDistance": 10,
+      "chase": false,
+      "priority": 10,
+      "regex": "^fode quest$"
+    }
+  ]
+}

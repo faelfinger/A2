@@ -1,0 +1,154 @@
+{
+  "autoHealthItemPanel1": {
+    "max": 60,
+    "item": 266,
+    "min": 0
+  },
+  "autoHelpMessage": "hi",
+  "_macros": {
+    "": false,
+    "Converter dinheiro": false,
+    "Sense Target": false,
+    "Juntar itens": false,
+    "Exchange money": true,
+    "Buff": false,
+    "Combo": false,
+    "Atacar Seguindo": false
+  },
+  "Combo5Text": "magia 6",
+  "foodItems": [
+    {
+      "count": 1,
+      "id": 3582
+    },
+    {
+      "count": 1,
+      "id": 3577
+    }
+  ],
+  "isUsing": false,
+  "ingame_hotkeys": "",
+  "autoManaItemPanel1": {
+    "max": 60,
+    "item": 268,
+    "min": 0
+  },
+  "buff": "buff magia",
+  "playerList": {
+    "enemyList": [
+
+    ],
+    "outfits": false,
+    "friendList": [
+
+    ],
+    "blackList": [
+
+    ],
+    "marks": false,
+    "groupMembers": false
+  },
+  "moneyItems": [
+    {
+      "count": 1,
+      "id": 3031
+    },
+    {
+      "count": 1,
+      "id": 3035
+    }
+  ],
+  "ComboText": "magia 1",
+  "Combo1Text": "magia 2",
+  "Combo4Text": "magia 5",
+  "afkMsg": "MENSAGEM",
+  "Combo6Text": "magia 7",
+  "autoHealthItemPanel2": {
+    "max": 60,
+    "item": 266,
+    "min": 0
+  },
+  "_icons": {
+    "buffz": {
+      "y": 0.069306930693069,
+      "x": 0.0070588235294118,
+      "enabled": false
+    },
+    "Combo": {
+      "y": 0.25,
+      "x": 0.01,
+      "enabled": false
+    },
+    "Sense": {
+      "y": 0.45,
+      "x": 0.01,
+      "enabled": false
+    }
+  },
+  "autofollow": {
+    "player": "name"
+  },
+  "healing4": {
+    "max": 50,
+    "title": "HP%",
+    "on": false,
+    "min": 0,
+    "text": "fuga"
+  },
+  "manatrainer": {
+    "max": 90,
+    "title": "mana%",
+    "on": false,
+    "min": 0,
+    "text": "Treinar Mana"
+  },
+  "autoHealthPanel1": {
+    "max": 80,
+    "item": 266,
+    "min": 0,
+    "text": "big regeneration"
+  },
+  "Combo2Text": "magia 3",
+  "autoHasteText": "utani hur",
+  "_configs": {
+    "targetbot_configs": {
+      "selected": "others",
+      "enabled": false
+    },
+    "cavebot_configs": {
+      "enabled": false
+    }
+  },
+  "alarms": {
+    "playerpk": false,
+    "playerDetected": false,
+    "creatureDetected": false,
+    "healthBelow": false,
+    "playerAttack": false,
+    "manaBelow": false,
+    "privateMessage": false,
+    "manaValue": 50,
+    "enabled": false,
+    "playerDetectedLogout": false,
+    "healthValue": 40
+  },
+  "advancedFriendHealer": {
+    "itemHeal": false,
+    "minFriendHp": 40,
+    "id": 3160,
+    "minMana": 60,
+    "distance": 8,
+    "spellHeal": false,
+    "spellName": "magia de cura"
+  },
+  "autoAntiParalyzeText": "utani hur",
+  "autoTradeMessage": "hi ",
+  "Combo3Text": "magia 4",
+  "healing3": {
+    "max": 90,
+    "title": "HP%",
+    "on": false,
+    "min": 0,
+    "text": "fuga"
+  }
+}

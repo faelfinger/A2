@@ -1,0 +1,443 @@
+{
+  "supplyRetries": 0,
+  "ingame_hotkeys": "-------------------------------\n\n\n-------------------------------\n\nmacro(1000, \"UP ML\", function()\n  say('powerdown')\nend)\n---------------------------------\nlocal healthId = 11863\nlocal healthPercent = 60\nmacro(200, \"SENZU VIDA\",  function()\n  if (hppercent() <= healthPercent) then\n    usewith(healthId, player) \n  end\nend)\n\nlocal manaId = 11863 ---- 61galho 63 red\nlocal manaPercent = 99\nmacro(200, \"SENZU MANA\",  function()\n  if (manapercent() <= manaPercent) then\n    usewith(manaId, player) \n  end\nend)\n\nlocal manaId = 11861 ---- 61galho 63 red\nlocal manaPercent = 99\nmacro(200, \"SENZU MANA UP\",  function()\n  if (manapercent() <= manaPercent) then\n    usewith(manaId, player) \n  end\nend)\n---------------------------------\nlocal castBelowHp = 70\nlocal deactiveBelowMana = 15\nmacro(1, \"Mystic Defens\",  function()\n  if (hppercent() <= castBelowHp and manapercent() >= deactiveBelowMana and not hasManaShield()) then\n    say('Mystic Defense')\n  end\n  if (hppercent() >= 85 and hasManaShield()) then\n      say('Mystic Kai')\n  end\n  if (manapercent() <= deactiveBelowMana and hasManaShield()) then\n      say('Mystic Kai')\n  end\nend)\n---------------------------------\n\nlocal revidar = false\naddSwitch(\"revidar\", \"REVIDAR\", function(widget)\n revidar = not revidar\n  widget:setOn(revidar)\nend)\n\nonTextMessage(function(mode, text)\n if g_game.isAttacking() and g_game.getAttackingCreature():isPlayer() then\n  return\n elseif not revidar then\n  return\n elseif not text:lower():find('you lose') then \n  return\n end\n for _, x in ipairs(getSpectators(posz())) do\n  if x:isPlayer() and text:find(x:getName()) then\n   g_game.attack(x)\n   break\n  end\n end\nend)\n\n\n\n-------------------------------------\n storage.targetName = \"\"\nmacro(1000, \"SENSE\", function()\n if g_game.isAttacking() then\n   storage.targetName = g_game.getAttackingCreature():getName()\n end\nif storage.targetName:len() >= 1 then\n  say('sense \"'.. storage.targetName)\n end\nend)\n\nlocal key = \"Escape\"\nonKeyPress(function(keys)\n   if (keys == key) then\n    storage.targetName = \"\"\n   end\nend)\naddTextEdit(\"text\", storage.targetName or \"sense\", function(widget, text) \nstorage.targetName = text\n end)\n\n\n---------------------------------------\n--------------------------------------------\n\n\n--Description: A macro to follow players through stairs, doors, ladders, sewer gates and some other things. \n--A message error appears on the log, but other than that everything seems to run well... save for the eventual hiccups!\n--ATTENTION: It might not work if multiple \"use objects\" that lead to different places are near eachother.\n\nFollow = macro(1000,\"Follow\",function()\n\nnome = storage.followLeader\nend)\n\nUI.Label(\"Follow Player:\")\naddTextEdit(\"playerToFollow\", storage.followLeader or \"Heeey\", function(widget, text)\n    storage.followLeader = text\n    target = tostring(text)\nend)\n\nnome = storage.followLeader\npos_p = player:getPosition()\n\np = getCreatureByName(nome)\n\nonCreaturePositionChange(function(creature, newPos, oldPos)\n    if Follow.isOn() then\n    \n        if creature:getName()==player:getName() and getCreatureByName(nome) == nil and newPos.z>oldPos.z then\n        \n            say('')\n            for i = -1,1 do\n              for j = -1,1 do\n            \n                local useTile = g_map.getTile({x=posx()+i,y=posy()+j,z=posz()})\n                 g_game.use(useTile:getTopUseThing())\n                \n            \n              end\n            end\n        end\n        if creature:getName()==nome then\n          \n            \n            if newPos==nil then\n                \n                \n                lastPos = oldPos\n                \n                schedule(200,function()\n                 autoWalk(oldPos)\n                end)\n                \n                schedule(1000,function()\n                    for i = -1,1 do\n                      for j = -1,1 do\n                    \n                        local useTile = g_map.getTile({x=posx()+i,y=posy()+j,z=posz()})\n                        g_game.use(useTile:getTopUseThing())\n                        \n                    \n                      end\n                    end\n                end)\n            \n            \n            end\n            \n            if oldPos.z == newPos.z then\n                     \n                schedule(300,function()\n                 local useTile = g_map.getTile({x=oldPos.x,y=oldPos.y,z=oldPos.z})\n                 topThing = useTile:getTopThing()\n                 \n                 if not useTile:isWalkable() then\n                   use(topThing)\n                 end\n                \n                end)\n            \n            \n                autoWalk({x=oldPos.x,y=oldPos.y,z=oldPos.z})\n            else\n            \n                lastPos = oldPos\n                autoWalk(oldPos)\n                for i = 1,6 do\n                    schedule(i*200,function()\n                      autoWalk(oldPos)\n                    \n                      if getDistanceBetween(pos(), oldPos) == 0 and (posz()>newPos.z and getCreatureByName(nome) == nil) then\n                        say('')\n                      end\n                    end)\n                end\n                local useTile = g_map.getTile({x=newPos.x,y=newPos.y-1,z=oldPos.z})\n                 g_game.use(useTile:getTopUseThing())\n                            \n            \n            end\n          \n        \n        end\n    \n    end\nend)\n\n--------------------------------------------\n\n\n\n--------------------------------------------------\n",
+  "time": {
+    "t": 0,
+    "a": 0
+  },
+  "buySuppliesCap": 0,
+  "jewelleryEquipper": {
+    "ringMin": 69,
+    "pzCheck": false,
+    "valueAmmy": false,
+    "ringEnabled": false,
+    "ammyEnabled": false,
+    "ammyMin": 100,
+    "ringMax": 100,
+    "valueRing": false,
+    "ringId": 3048,
+    "ammyId": 3073,
+    "ammySwitch": true,
+    "ringValue": "HP",
+    "ringSwitch": true,
+    "ammyMax": 100,
+    "ammyValue": "HP"
+  },
+  "manatrainer": {
+    "max": 0,
+    "title": "mana%",
+    "on": false,
+    "min": 0,
+    "text": "powerdown"
+  },
+  "scythe": 9596,
+  "inboxContainerOpen": false,
+  "autoAntiParalyzeText": "speed up",
+  "autoTradeMessage": "hi",
+  "autoHealthItemPanel1": {
+    "max": 60,
+    "item": 11863,
+    "min": 0,
+    "enabled": true
+  },
+  "stopSearch": false,
+  "machete": 9596,
+  "_macros": {
+    "": false,
+    "Juntar itens": true,
+    "Buff": true,
+    "test": false,
+    "2Buff": true,
+    "Auto Haste": true,
+    "Stake Bodies": false,
+    "UP": false,
+    "SENZU MANA UP": false,
+    "SENSE": false,
+    "Sense Target": false,
+    "Anti Paralyze": true,
+    "Enemy": false,
+    "Combo": true,
+    "Spy Level": false,
+    "f2": false,
+    "Auto Target": true,
+    "Dance": false,
+    "Follow": false,
+    "mwall on target": false,
+    "equip set 1": false,
+    "xD": false,
+    "UP ML": false,
+    "SENZU MANA": false,
+    "Mystic Defens": true,
+    "SENZU VIDA": true,
+    "mwall step": false,
+    "Pull Nearby Items": false,
+    "Puxar itens": false,
+    "equip set 2": false,
+    "COMBO PVP": false,
+    "attack enemy": false,
+    "IGNORA SUMON/PET": false,
+    "Atacar Seguindo": false,
+    "Converter dinheiro": true,
+    "Monstro Hp %": false,
+    "Click ReUse": false,
+    "F2": false,
+    "Atacar Monstros": false,
+    "Anti-Push": false,
+    "Follow Attack": false,
+    "Abrir Bag Principal": true,
+    "Bug Map": false
+  },
+  "Combo3Text": "slider balls",
+  "lootContainerOpen": false,
+  "ComboText": "immobile",
+  "Combo4Text": "big ki dead",
+  "clearing": false,
+  "_icons": {
+    "UP": {
+      "y": 0.17114568599717,
+      "x": 0,
+      "enabled": false
+    },
+    "X_X": {
+      "y": 0.27581329561528,
+      "x": 0,
+      "enabled": true
+    },
+    "Sense": {
+      "y": 0.27015558698727,
+      "x": 0,
+      "enabled": false
+    },
+    "buffz": {
+      "y": 0.38896746817539,
+      "x": 0,
+      "enabled": true
+    },
+    "Buff": {
+      "y": 0.05,
+      "x": 0.01,
+      "enabled": true
+    },
+    "Combo": {
+      "y": 0.16265912305516,
+      "x": 0.0023529411764706,
+      "enabled": true
+    },
+    "xD": {
+      "y": 0.38048090523338,
+      "x": 0,
+      "enabled": false
+    }
+  },
+  "Combo2Text": " yamoshi attack ",
+  "autoHasteText": "speed up",
+  "BOTserver": {
+    "manaInfo": true,
+    "mwallInfo": true,
+    "mwalls": [
+
+    ]
+  },
+  "autoManaItemPanel1": {
+    "max": 2,
+    "item": 11863,
+    "min": 1,
+    "enabled": false
+  },
+  "posCheckRetries": 0,
+  "healing3": {
+    "max": 48,
+    "title": "HP%",
+    "on": false,
+    "min": 0,
+    "text": "mystic defense"
+  },
+  "rope": 9596,
+  "castle": {
+    "enabled": false,
+    "around": false,
+    "id": 3031
+  },
+  "autoHelpMessage": "hi",
+  "monsterKill": {
+    "min": false
+  },
+  "foodItems": [
+    {
+      "id": 3577,
+      "count": 1
+    }
+  ],
+  "isUsing": false,
+  "serverMembers": "[\"Deppy\"]",
+  "Combo1Text": "extermination",
+  "supplies": {
+    "imbues": false,
+    "item6": 0,
+    "item3": 0,
+    "item3Min": 0,
+    "item1Min": 0,
+    "item4": 0,
+    "item2Min": 0,
+    "item2": 0,
+    "item1": 0,
+    "item6Min": 0,
+    "potionBp": 0,
+    "item6Max": 0,
+    "item2Max": 0,
+    "sortSupplies": false,
+    "SoftBoots": false,
+    "runeBp": 0,
+    "item4Max": 0,
+    "capValue": 0,
+    "item4Min": 0,
+    "item3Max": 0,
+    "staminaSwitch": false,
+    "item5": 0,
+    "staminaValue": 900,
+    "capSwitch": false,
+    "item5Max": 0,
+    "item5Min": 0,
+    "item1Max": 0,
+    "ammoBp": 0
+  },
+  "buff2": "divinity power ",
+  "shovel": 9596,
+  "attackbot": {
+    "attackTable": [
+      {
+        "attack": "chakra down",
+        "category": 3,
+        "model": 2,
+        "dist": 2,
+        "index": 1,
+        "minMonsters": 100,
+        "enabled": true,
+        "pvp": true,
+        "manaCost": 100
+      }
+    ],
+    "pvpMode": false,
+    "pvpSafe": true,
+    "enabled": false,
+    "ignoreMana": true
+  },
+  "ConditionPanel": {
+    "cureBurn": false,
+    "curseCost": 80,
+    "electrifyCost": 22,
+    "ignoreInPz": true,
+    "bleedCost": 45,
+    "cureCurse": false,
+    "holdHaste": false,
+    "curePosion": false,
+    "hasteSpell": "utani hur",
+    "uturaType": "",
+    "burnCost": 30,
+    "cureBleed": false,
+    "holdUtura": false,
+    "paralyseSpell": "utani hur",
+    "hasteCost": 40,
+    "cureParalyse": false,
+    "poisonCost": 20,
+    "utamoCost": 40,
+    "enabled": false,
+    "uturaCost": 100,
+    "cureElectrify": false,
+    "holdUtamo": false,
+    "paralyseCost": 40,
+    "utanaCost": 440,
+    "holdUtana": false,
+    "stopHaste": false
+  },
+  "advancedFriendHealer": {
+    "itemHeal": false,
+    "minFriendHp": 40,
+    "id": 3160,
+    "spellName": "exura sio",
+    "distance": 8,
+    "spellHeal": false,
+    "minMana": 60
+  },
+  "Combo5Text": "",
+  "BotServerChannel": "4478866506224",
+  "combobot": {
+    "attackSpellEnabled": false,
+    "attackLeaderTargetEnabled": true,
+    "shootLeader": "Ruisu",
+    "serverTriggers": false,
+    "serverLeaderTarget": false,
+    "commandsEnabled": true,
+    "serverEnabled": false,
+    "onSayEnabled": false,
+    "attack": "LEADER TARGET",
+    "enabled": false,
+    "spell": "",
+    "onShootEnabled": true,
+    "attackItemToggle": false,
+    "onCastEnabled": false,
+    "item": 3155,
+    "sayPhrase": "",
+    "followLeaderEnabled": true,
+    "serverLeader": "",
+    "sayLeader": "",
+    "follow": "LEADER",
+    "castLeader": ""
+  },
+  "antiPushPanel": {
+    "lastItem": 2,
+    "enabled": false,
+    "items": [
+      3031,
+      3035,
+      0,
+      0,
+      0
+    ]
+  },
+  "autoEquip": [
+    {
+      "item1": 10588,
+      "title": "Auto Equip",
+      "item2": 0,
+      "on": false,
+      "slot": 8
+    },
+    {
+      "item1": 10586,
+      "title": "Auto Equip",
+      "item2": 0,
+      "on": false,
+      "slot": 4
+    }
+  ],
+  "killedCreatures": [
+
+  ],
+  "sellAllCap": 0,
+  "killSteal": {
+    "setting": false,
+    "enabled": false,
+    "hp": 95,
+    "id": 3260
+  },
+  "_configs": {
+    "cavebot_configs": {
+      "selected": "DG_RUUDO",
+      "enabled": false
+    },
+    "targetbot_configs": {
+      "enabled": true,
+      "selected": "others"
+    }
+  },
+  "afkMsg": "MENSAGEM",
+  "healbot": {
+    "spellTable": [
+
+    ],
+    "enabled": false,
+    "itemTable": [
+
+    ]
+  },
+  "autoHealthItemPanel2": {
+    "max": 40,
+    "item": 12633,
+    "min": 0,
+    "enabled": true
+  },
+  "Combo6Text": "dead anikilation",
+  "moneyItems": [
+    {
+      "id": 3031,
+      "count": 1
+    },
+    {
+      "id": 3035,
+      "count": 1
+    }
+  ],
+  "healing4": {
+    "max": 30,
+    "title": "HP%",
+    "on": false,
+    "min": 0,
+    "text": ""
+  },
+  "pushmax": {
+    "pushMaxRuneId": 3031,
+    "mwallBlockId": 3031,
+    "pushDelay": 800,
+    "enabled": false,
+    "pushMaxKey": "PageUp"
+  },
+  "autoHealthPanel1": {
+    "max": 99,
+    "enabled": true,
+    "item": 107,
+    "min": 0,
+    "text": "super regeneration"
+  },
+  "autofollow": {
+    "player": ""
+  },
+  "lootStatus": "",
+  "followLeader": "",
+  "alarms": {
+    "playerpk": true,
+    "playerDetected": true,
+    "creatureDetected": false,
+    "healthBelow": false,
+    "playerAttack": false,
+    "bossName": "",
+    "healthValue": 35,
+    "manaBelow": false,
+    "messageText": "",
+    "playerDetectedLogout": false,
+    "enabled": false,
+    "manaValue": 50,
+    "privateMessage": false
+  },
+  "playerList": {
+    "enemyList": [
+
+    ],
+    "outfits": false,
+    "friendList": [
+      "Bangalagadjones",
+      "Berg",
+      "Biru one",
+      "Biruzao",
+      "Birukupreto",
+      "Jacinto",
+      "Kambuloso",
+      "Itachi",
+      "Buubbaloo",
+      "Thebadsac",
+      "Dante Returns"
+    ],
+    "marks": false,
+    "blackList": [
+
+    ],
+    "groupMembers": false
+  },
+  "buff": "divinity power ",
+  "ingame_hotkeys2": "---------------------------------------------\n\nif player:getBlessings() == 0 then\n    say(\"!bless\")\n    schedule(2000, function()\n        if player:getBlessings() == 0 then\n            error(\"!! Blessings not bought !!\")\n        end\n    end)\nend\n\n-------------------\n\nlocal function checkPos(x, y)\n xyz = g_game.getLocalPlayer():getPosition()\n xyz.x = xyz.x + x\n xyz.y = xyz.y + y\n tile = g_map.getTile(xyz)\n if tile then\n  return g_game.use(tile:getTopUseThing())\n else\n  return false\n end\nend\n\n\nmacro(1, 'Bug Map', function() \n if modules.corelib.g_keyboard.isKeyPressed('w') then\n  checkPos(0, -5)\n elseif modules.corelib.g_keyboard.isKeyPressed('e') then\n  checkPos(3, -3)\n elseif modules.corelib.g_keyboard.isKeyPressed('d') then\n  checkPos(5, 0)\n elseif modules.corelib.g_keyboard.isKeyPressed('c') then\n  checkPos(3, 3)\n elseif modules.corelib.g_keyboard.isKeyPressed('s') then\n  checkPos(0, 5)\n elseif modules.corelib.g_keyboard.isKeyPressed('z') then\n  checkPos(-3, 3)\n elseif modules.corelib.g_keyboard.isKeyPressed('a') then\n  checkPos(-5, 0)\n elseif modules.corelib.g_keyboard.isKeyPressed('q') then\n  checkPos(-3, -3)\n end\nend)\n\n----------------------------------\n--[[Esconder Magias Laranjas da tela]]--\nonStaticText(function(thing, text)\n    if not text:find('says:') then\n        g_map.cleanTexts()\n    end\nend)\n\n\n-------------------------------------------\n---------------------------------\n\nmacro(1, \"Enemy\", function()\n for _,pla in ipairs(getSpectators(posz())) do\n attacked = g_game.getAttackingCreature()\n  if (not attacked or (attacked and (not attacked:isPlayer() or (pla:getHealthPercent() < attacked:getHealthPercent())))) and pla:isPlayer() and pla:getEmblem() ~= 1 then \n   g_game.attack(pla)\n  end\n end\nend)\n\n----------------------------------\n\nlocal m = macro(10000, \"attack enemy\", function() end)\n\nonCreatureAppear(function(creature)\n  if m.isOff() then return end\n  if creature:isMonster() then return end\n  local name = creature:getName()\n\n  if isEnemy(name) then\n    g_game.attack(creature)\n  elseif not g_game.isAttacking() then\n    TargetBot.setOn()\n    CaveBot.setOn()\n  end\n\nend)\n\n---------------------------------\n\n",
+  "trashItems": [
+    {
+      "count": 1,
+      "id": 283
+    },
+    {
+      "count": 1,
+      "id": 284
+    },
+    {
+      "count": 1,
+      "id": 285
+    }
+  ],
+  "targetName": ""
+}
