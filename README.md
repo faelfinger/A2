@@ -17,8 +17,8 @@
 <details>
   <summary>About +</summary>
    
-##### Fazendo uns jogos no RPGMaker, Unreal Engine e Unity
-##### Script e Bots para TibiaCustom
+##### 👾Fazendo uns jogos no RPGMaker, Unreal Engine e Unity
+##### 🤖Script e Bots para TibiaCustom
 
 </details>
 
