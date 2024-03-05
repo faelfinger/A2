@@ -4,7 +4,11 @@
     <summary><h1 style="display: inline-block">🎮🕹️</h1></summary>
 </div>
      
-* Jogos / Mods / Script / Bots
+
+> [!NOTE]
+> * Jogos / Mods / Script / Bots
+
+
 > [!WARNING]
 > * Tibia(OTS) ⚠️Em testes⚠️
 
